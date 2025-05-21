@@ -1,7 +1,7 @@
 from database_utils import connect_db, LOG_DB_CONFIG
 
 def create_table_search_log_EF():
-    """Создаёт таблицу search_logs_EF, если её нет."""
+    """Creates the table search_logs_EF if it doesn't exist."""
     connection = connect_db(LOG_DB_CONFIG)
     if connection is None:
         return
@@ -22,13 +22,13 @@ def create_table_search_log_EF():
         connection.commit()
         print("✅ Таблица search_logs_EF успешно создана (если её не было).")
     except Exception as e:
-        print(f"❌ Ошибка при создании таблицы: {e}")
+        print(f"❌ Error creating the table: {e}")
     finally:
         cursor.close()
         connection.close()
 
 def log_search_query(genre, year, keyword):
-    """Сохраняет параметры поиска в таблицу search_logs_EF."""
+    """Saves search parameters to the table search_logs_EF."""
     connection = connect_db(LOG_DB_CONFIG)
     if connection is None:
         return
@@ -43,14 +43,14 @@ def log_search_query(genre, year, keyword):
         cursor.execute(insert_query, (genre or None, year or None, keyword or None))
         connection.commit()
     except Exception as e:
-        print(f"❌ Ошибка при сохранении запроса: {e}")
+        print(f"❌ Error saving the query: {e}")
     finally:
         cursor.close()
         connection.close()
 
 def get_popular_queries():
-    """Выводит 10 самых популярных поисковых запросов."""
-    print("🔍 Проверка: выполняется get_popular_queries()")  
+    """Displays top 10 popular search queries."""
+    print("🔍 Running get_popular_queries()")  
 
     connection = connect_db(LOG_DB_CONFIG)
     if connection is None:
@@ -70,24 +70,24 @@ def get_popular_queries():
     LIMIT 10;
     """
 
-    print("📌 SQL-запрос для популярных запросов:")
+    print("📌 SQL query for popular queries:")
     print(query)  
 
     try:
         cursor.execute(query)
         results = cursor.fetchall()
 
-        print("📊 Результаты запроса:")  
+        print("📊 Query results:")  
         for row in results:
             print(row)  # Вывод данных в терминал
 
         if not results:
-            print("⚠️ Популярные запросы отсутствуют в базе.")  
+            print("⚠️ No popular queries found in the database.")  
 
         return results
 
     except Exception as e:
-        print(f"❌ Ошибка при выполнении SQL-запроса: {e}")
+        print(f"❌ Error executing SQL query: {e}")
         return []
     
     finally:
