@@ -7,7 +7,7 @@ if __name__ == "__main__":
 from search_movies import search_movies
 from log_queries import create_table_search_log_EF, get_popular_queries
 
-# 🔹 Функция для получения диапазона годов
+
 def get_year_range():
     """Gets the min and max release year from database."""
     connection = connect_db(SAKILA_DB_CONFIG)
@@ -28,7 +28,7 @@ def get_year_range():
         cursor.close()
         connection.close()
 
-# 📌 Список жанров с номерами
+# 📌 
 GENRES = {
     1: "Action", 2: "Animation", 3: "Children", 4: "Classics",
     5: "Comedy", 6: "Documentary", 7: "Drama", 8: "Family",
@@ -36,7 +36,7 @@ GENRES = {
     13: "New", 14: "Sci-Fi", 15: "Sports", 16: "Travel"
 }
 
-# 🔹 Запуск приложения
+# 🔹 
 if __name__ == "__main__":
     create_table_search_log_EF()
     min_year, max_year = get_year_range()
@@ -52,15 +52,15 @@ if __name__ == "__main__":
         if choice == '1':
             print("\n📌 Enter search parameters (press Enter to skip):")
 
-            # 📌 Вывод списка жанров перед вводом
+            # 📌 
             print("\n🎭 Available genres:")
             for num, name in GENRES.items():
                 print(f"{num}. {name}")
 
-            # 📌 Получение ввода от пользователя
+            # 📌 
             genres_input = input("\nEnter a numberа жанров (через запятую) или их названия: ").strip()
 
-            # 📌 Обработка жанров
+            # 📌 
             genres = []
             if genres_input:
                 genres_list = [g.strip() for g in genres_input.split(",")]
@@ -84,7 +84,7 @@ if __name__ == "__main__":
             else:
                 genres = None
 
-            # 📌 Ввод года с проверкой
+            # 📌
             year = None
             while True:
                 print(f"📅 Release year (от 1990 до 2024):")
@@ -102,10 +102,10 @@ if __name__ == "__main__":
                 else:
                     print("⚠️ Invalid input. Введите число или оставьте поле пустым.")
 
-            # 📌 Ввод ключевого слова
+            # 📌 
             keyword = input("🔎 Keyword in title: ").strip() or None
 
-            # 📌 Запуск поиска
+            # 📌
             selected_genre = genres[0] if genres else None
             print(f"🔍 Search by genre: {selected_genre}")  
 
